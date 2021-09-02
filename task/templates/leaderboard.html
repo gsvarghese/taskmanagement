@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Page</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="{{ url_for('static', filename='assets/plugins/bootstrap/bootstrap.css' ) }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename = 'assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename = 'assets/plugins/pace/pace-theme-big-counter.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename = 'assets/css/style.css') }}" rel="stylesheet" />
+      <link href="{{ url_for('static',filename = 'assets/css/main-style.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename='assets/css/table.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+    <!--  wrapper -->
+    <div id="wrapper">
+        <!-- navbar top -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+            <!-- navbar-header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <h1>TMS</h1>
+                </a>
+            </div>
+            <!-- end navbar-header -->
+            <!-- navbar-top-links -->
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- main dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="top-label label label-info">{{ no }}</span><i class="fa fa-envelope fa-3x"></i>
+                    </a>
+                    <!-- dropdown-messages -->
+                    <ul class="dropdown-menu dropdown-messages">
+                        {% for i in range(3) if info[1][i] %}
+                        <li>
+                            <a href="">
+                                <div>
+                                    <strong><span class=" label label-info">{{ info[1][i] }}</span></strong>
+                                </div>
+                                <div>{{ info[0][i] }}</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        {% endfor %}
+                        <li>
+                            <a class="text-center" href="{{url_for('messages',username=username)}}">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- end dropdown-messages -->
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-3x"></i>
+
+                    </a>
+                    <!-- dropdown user-->
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="{{ url_for('home_page') }}"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        </li>
+                    </ul>
+                    <!-- end dropdown-user -->
+                </li>
+                <!-- end main dropdown -->
+            </ul>
+            <!-- end navbar-top-links -->
+
+        </nav>
+        <!-- end navbar top -->
+
+        <!-- navbar side -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <!-- sidebar-collapse -->
+            <div class="sidebar-collapse">
+                <!-- side-menu -->
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <!-- user image section-->
+                        <div class="user-section">
+                            <div class="user-section-inner">
+                                <img src="{{ url_for('static',filename = 'assets/img/user.jpg') }}" alt="">
+                            </div>
+                            <div class="user-info">
+                                <div>{{ username }}</div>
+                            </div>
+                        </div>
+                        <!--end user image section-->
+                    </li>
+                    <li class="">
+                        <a href="{{ url }}"><i class="fa fa-dashboard fa-fw"></i>Project</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url_for('send_message' , username=username) }}"><i class="fa fa-fw"></i>Send Message</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url_for('leaderboard',username=username) }}"><i class="fa fa-fw"></i>Leaderboard</a>
+                    </li>
+
+                </ul>
+                <!-- end side-menu -->
+            </div>
+            <!-- end sidebar-collapse -->
+        </nav>
+        <!-- end navbar side -->
+        <!--  page-wrapper -->
+        <div id="page-wrapper">
+<div class="row">
+                <!-- Page Header -->
+                <div class="col-lg-12">
+                    <h1 class="page-header">Project Info</h1>
+                </div>
+                <!--End Page Header -->
+            </div>
+             <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Project Status:
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <div class="col-lg-6">
+                                <label>Employee Leaderboard</label>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                <table>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>No of tasks completed</th>
+                                    </tr>
+                                    {% for i in range(size_lead) %}
+                                    <tr>
+                                        <td>{{ lead_info[0][i] }}</td>
+                                        <td>{{ lead_info[1][i] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+        <!-- end page-wrapper -->
+
+    </div>
+    <!-- end wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="{{ url_for('static',filename = 'assets/plugins/jquery-1.10.2.js') }}"></script>
+    <script src="{{ url_for('static' , filename = 'assets/plugins/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename = 'assets/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ url_for('static',filename = 'assets/plugins/pace/pace.js') }}"></script>
+    <script src="{{ url_for('static',filename = 'assets/scripts/siminta.js') }}"></script>
+
+</body>
+
+</html>
